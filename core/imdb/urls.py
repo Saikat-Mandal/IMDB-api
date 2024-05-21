@@ -1,4 +1,5 @@
 from django.urls import path , include
+from rest_framework.schemas import get_schema_view
 
 from . import views
 from .views import api_root 
@@ -21,5 +22,17 @@ urlpatterns = [
     path('stream/', views.stream_list.as_view() , name="StreamPlatform-platform"),
     path('stream/<int:pk>', views.stream_detail.as_view() , name="StreamPlatform-detail"),
     path('', views.api_root),
+
+        # ...
+        # Use the `get_schema_view()` helper to add a `SchemaView` to project URLs.
+        #   * `title` and `description` parameters are passed to `SchemaGenerator`.
+        #   * Provide view name for use with `reverse()`.
+        path('openapi', get_schema_view(
+            title="imdb",
+            description="API for all things …",
+            version="1.0.0"
+        ), name='openapi-schema'),
+        # ...
+
     # path('', include(router.urls)),
 ]
